@@ -6,10 +6,10 @@ My LeetCode solutions automatically synced from LeetCode to GitHub.
 
 | Language | Solved |
 |---|---:|
-| 🐍 Python | 62 |
+| 🐍 Python | 63 |
 | ☕ Java | 0 |
 | ⚡ C++ | 1 |
-| **Total** | **63** |
+| **Total** | **64** |
 
 ## 📁 Repository Structure
 
