@@ -1,33 +1,34 @@
-# LeetCode Solutions
+﻿# LeetCode Solutions
 
 My LeetCode solutions automatically synced from LeetCode to GitHub.
 
-## 📊 Progress
+## ðŸ“Š Progress
 
 | Language | Solved |
 |---|---:|
-| 🐍 Python | 63 |
-| ☕ Java | 0 |
-| ⚡ C++ | 1 |
-| **Total** | **64** |
+| ðŸ Python | 62 |
+| â˜• Java | 0 |
+| âš¡ C++ | 1 |
+| **Total** | **63** |
 
-## 📁 Repository Structure
+## ðŸ“ Repository Structure
 
 ```
 LeetCode-Solutions/
-├── Python/
-│   ├── 0001-two-sum/
-│   │   └── solution.py
-│   └── ...
-├── Java/
-│   └── ...
-├── C++/
-│   └── ...
-└── README.md
+â”œâ”€â”€ Python/
+â”‚   â”œâ”€â”€ 0001-two-sum/
+â”‚   â”‚   â””â”€â”€ solution.py
+â”‚   â””â”€â”€ ...
+â”œâ”€â”€ Java/
+â”‚   â””â”€â”€ ...
+â”œâ”€â”€ C++/
+â”‚   â””â”€â”€ ...
+â””â”€â”€ README.md
 ```
 
-## 🔄 Automatic Sync
+## ðŸ”„ Automatic Sync
 
 New accepted LeetCode submissions are automatically synced to this repository.
 
 **Last updated:** 2026-09-28 16:20:40
+
