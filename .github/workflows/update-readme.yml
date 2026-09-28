@@ -18,12 +18,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Update README
+      - name: Generate README
         shell: python
         run: |
           from pathlib import Path
-          from datetime import datetime, timezone
-          import re
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
 
           root = Path(".")
 
@@ -35,8 +35,14 @@ jobs:
               and p.name != "README.md"
           ]
 
-          python_count = sum(p.suffix.lower() == ".py" for p in files)
-          java_count = sum(p.suffix.lower() == ".java" for p in files)
+          python_count = sum(
+              p.suffix.lower() == ".py" for p in files
+          )
+
+          java_count = sum(
+              p.suffix.lower() == ".java" for p in files
+          )
+
           cpp_count = sum(
               p.suffix.lower() in {".cpp", ".cc", ".cxx"}
               for p in files
@@ -44,40 +50,34 @@ jobs:
 
           total = python_count + java_count + cpp_count
 
-          now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+          now = datetime.now(
+              ZoneInfo("Asia/Kolkata")
+          ).strftime("%Y-%m-%d %H:%M:%S IST")
 
-          readme = Path("README.md").read_text(encoding="utf-8")
+          readme = f"""# LeetCode Solutions
 
-          progress = f"""## Progress
+My LeetCode solutions automatically synced from LeetCode to GitHub.
 
-          | Language | Solved |
-          |---|---:|
-          | Python | {python_count} |
-          | Java | {java_count} |
-          | C++ | {cpp_count} |
-          | **Total** | **{total}** |"""
+## Progress
 
-          readme = re.sub(
-              r"## Progress.*?(?=\n## Automatic Sync)",
-              progress,
+| Language | Solved |
+|---|---:|
+| Python | {python_count} |
+| Java | {java_count} |
+| C++ | {cpp_count} |
+| **Total** | **{total}** |
+
+## Automatic Sync
+
+New accepted LeetCode submissions are automatically synced to this repository.
+
+Last updated: {now}
+"""
+
+          Path("README.md").write_text(
               readme,
-              flags=re.S
+              encoding="utf-8"
           )
-
-          readme = re.sub(
-              r"## Repository Structure.*?(?=\n## Automatic Sync)",
-              "",
-              readme,
-              flags=re.S
-          )
-
-          readme = re.sub(
-              r"Last updated:.*",
-              f"Last updated: {now}",
-              readme
-          )
-
-          Path("README.md").write_text(readme.strip() + "\n", encoding="utf-8")
 
       - name: Commit README
         shell: bash
