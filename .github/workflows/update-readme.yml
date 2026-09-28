@@ -46,7 +46,7 @@ jobs:
 
           now = datetime.now(
               ZoneInfo("Asia/Kolkata")
-          ).strftime("%Y-%m-%d %H:%M:%S IST")
+          ).strftime("%Y-%m-%d %I:%M:%S %p IST")
 
           readme = "\n".join([
               "# LeetCode Solutions",
