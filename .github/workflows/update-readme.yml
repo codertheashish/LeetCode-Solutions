@@ -1,0 +1,82 @@
+name: Update LeetCode README
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update README statistics
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          root = Path(".")
+
+          files = [
+              p for p in root.rglob("*")
+              if p.is_file()
+              and ".git" not in p.parts
+              and ".github" not in p.parts
+              and p.name != "README.md"
+          ]
+
+          python_count = sum(p.suffix.lower() == ".py" for p in files)
+          java_count = sum(p.suffix.lower() == ".java" for p in files)
+          cpp_count = sum(p.suffix.lower() in {".cpp", ".cc", ".cxx"} for p in files)
+
+          total = python_count + java_count + cpp_count
+
+          readme = Path("README.md").read_text(encoding="utf-8")
+
+          new_table = f"""| Language | Solved |
+          |---|---:|
+          | 🐍 Python | {python_count} |
+          | ☕ Java | {java_count} |
+          | ⚡ C++ | {cpp_count} |
+          | **Total** | **{total}** |"""
+
+          pattern = r"\| Language \| Solved \|\s*\n\|---\|---:\|\s*\n(?:\|.*\n){4}"
+
+          if re.search(pattern, readme):
+              readme = re.sub(pattern, new_table + "\n", readme, count=1)
+          else:
+              readme += f"\n\n## 📊 Progress\n\n{new_table}\n"
+
+          Path("README.md").write_text(readme, encoding="utf-8")
+
+          print(f"Python: {python_count}")
+          print(f"Java: {java_count}")
+          print(f"C++: {cpp_count}")
+          print(f"Total: {total}")
+
+      - name: Commit README changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "README is already up to date."
+            exit 0
+          fi
+
+          git commit -m "Update LeetCode progress"
+          git push
