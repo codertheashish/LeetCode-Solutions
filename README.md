@@ -6,13 +6,13 @@ My LeetCode solutions automatically synced from LeetCode to GitHub.
 
 | Language | Solved |
 |---|---:|
-| Python | 74 |
+| Python | 75 |
 | Java | 0 |
 | C++ | 1 |
-| **Total** | **75** |
+| **Total** | **76** |
 
 ## Automatic Sync
 
 New accepted LeetCode submissions are automatically synced to this repository.
 
-Last updated: 2026-10-10 11:27:11 PM IST
+Last updated: 2026-10-11 11:22:34 PM IST
